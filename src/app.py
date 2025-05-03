@@ -8,11 +8,19 @@ from . import db
 load_dotenv()
 
 def create_app():
-    """Create and configure the Flask application."""
+    """Create and configure the Flask applicatio
+    n."""
     app = Flask(__name__)
     
-    # Enable CORS
-    CORS(app)
+    # Enable CORS with specific configuration
+    CORS(app, resources={
+        r"/WCAPI/*": {
+            "origins": ["https://animachatbotics.com"],
+            "methods": ["GET", "POST", "OPTIONS"],
+            "allow_headers": ["Content-Type"],
+            "supports_credentials": True
+        }
+    })
     
     # Configure database
     database_url = os.getenv('DATABASE_URL')
@@ -28,7 +36,7 @@ def create_app():
     
     # Register blueprints
     from .routes import chat_bp
-    app.register_blueprint(chat_bp, url_prefix='/api/chat')
+    app.register_blueprint(chat_bp, url_prefix='WCAPI')
     
     # Create database tables
     with app.app_context():
