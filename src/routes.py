@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from flask_cors import cross_origin
 from flask_restful import Api
 from .models import ChatMessage
 from .chat_api import ChatAPI
@@ -11,6 +12,7 @@ api = Api(chat_bp)
 api.add_resource(ChatAPI, '/webchat/<platform>', '/webchat')
 
 @chat_bp.route('/message', methods=['POST'])
+@cross_origin() 
 def send_message():
     """Handle incoming chat messages."""
     try:
@@ -43,6 +45,7 @@ def send_message():
         return jsonify({'error': str(e)}), 500
 
 @chat_bp.route('/history/<session_id>', methods=['GET'])
+@cross_origin() 
 def get_chat_history(session_id):
     """Retrieve chat history for a specific session."""
     try:

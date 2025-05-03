@@ -6,6 +6,8 @@ from . import db
 
 # Load environment variables
 load_dotenv()
+CORS_HEADERS = 'Content-Type, Authorization, Origin, x-csrf-token', ''
+CORS_METHODS = 'GET, HEAD, POST, PATCH, DELETE, OPTIONS' 
 
 def create_app():
     """Create and configure the Flask applicatio
@@ -14,7 +16,8 @@ def create_app():
     
     # Enable CORS with specific configuration
     app.url_map.strict_slashes = False
-    CORS(app, resources=r'/*')
+    CORS_HEADERS = 'Content-Type, Authorization, Origin, x-csrf-token' 
+    CORS(app, resources=r'/*', methods=CORS_METHODS, headers=CORS_HEADERS)
     
     # Configure database
     database_url = os.getenv('DATABASE_URL')
