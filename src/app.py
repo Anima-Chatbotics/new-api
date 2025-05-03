@@ -33,7 +33,7 @@ def create_app():
     
     # Register blueprints
     from .routes import chat_bp
-    app.register_blueprint(chat_bp, url_prefix='WCAPI')
+    app.register_blueprint(chat_bp, url_prefix='/WCAPI')
     
     # Create database tables
     with app.app_context():
