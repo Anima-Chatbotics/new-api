@@ -9,7 +9,7 @@ chat_bp = Blueprint('chat', __name__)
 api = Api(chat_bp)
 
 # Register the ChatAPI resource
-api.add_resource(ChatAPI, '/webchat/<platform>', '/webchat')
+api.add_resource(ChatAPI, '/', '/webchat/<platform>', '/webchat')
 
 @chat_bp.route('/message', methods=['POST'])
 @cross_origin() 
